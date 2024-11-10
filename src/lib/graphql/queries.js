@@ -63,3 +63,43 @@ export const getCompanyDetail = async (id) => {
   const data = await client.request(query, variables);
   return data.company;
 };
+
+export const getCompanies = async () => {
+    const query = gql`
+        query companies {
+            getCompanies {
+                id
+                name
+            }
+        }
+    `;
+
+    const data = await client.request(query);
+
+    return data.getCompanies;
+}
+
+export const createJob = async (inputJob) => {
+    const query = gql`
+        mutation($input: CreateJobInput) {
+            createJob(input: $input) {
+                id
+                title
+                date
+            }
+        }
+    `;
+
+    console.log('job : ', inputJob);
+    
+
+    const data = await client.request(query, {
+        input: {
+            title: inputJob?.title,
+            description: inputJob?.description,
+            companyId: inputJob?.company
+        }
+    });
+
+    return data.createJob;
+};
