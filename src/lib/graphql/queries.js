@@ -83,15 +83,13 @@ export const createJob = async (inputJob) => {
     const query = gql`
         mutation($input: CreateJobInput) {
             createJob(input: $input) {
-                id
-                title
-                date
+                success
+                job {
+                    id
+                }
             }
         }
     `;
-
-    console.log('job : ', inputJob);
-    
 
     const data = await client.request(query, {
         input: {

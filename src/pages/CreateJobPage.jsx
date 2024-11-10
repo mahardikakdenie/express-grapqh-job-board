@@ -18,7 +18,9 @@ function CreateJobPage() {
 
     createJob(job).then(res => {
       console.log(res);
-      navigate('/'); // Redirect ke halaman utama setelah sukses
+      if (res?.success === 'success') {
+        navigate('/');
+      }
     });
   };
 
